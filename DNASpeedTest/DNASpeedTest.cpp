@@ -48,7 +48,7 @@ int main()
     {
         counter++;
         // You can uncomment the next line to see all k-mers.
-        cout << s << endl;  
+         // cout << s << endl;  
         change_next = true;
         for (int i = 0; i < len_str; i++)
         {

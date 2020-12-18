@@ -3,43 +3,41 @@
 
 class kmer
 {
+private:
 	static const int length = 13;
-	char s[length+1];
-
-
+	char data[length+1];
 
 public:
 	kmer(const kmer& src)
 	{
-		strcpy_s(s, sizeof(s),src.s);
+		strcpy_s(data, sizeof(data),src.data);
 	}
-
-	
 	
 	static kmer First()
 	{
 		kmer k;
-		std::memset(k.s, options[opt_begin], length);
+		std::memset(k.data, options[opt_begin], length);
 		return k;
 	}
 
 	static kmer Last()
 	{
 		kmer k;
-		std::memset(k.s, options[opt_last], length);
+		std::memset(k.data, options[opt_last], length);
 		return k;
 	}
 
 	operator const char* () const
 	{
-		return s;
+		return data;
 	}
 
 	static friend bool operator ==(const kmer& lhs, const kmer& rhs)
 	{
-		return strcmp(lhs.s, rhs.s) == 0;
+		return strcmp(lhs.data, rhs.data) == 0;
 	}
-	static friend bool operator !=(const kmer& lhs, const kmer& rhs)
+
+	static friend auto operator !=(const kmer& lhs, const kmer& rhs) -> bool
 	{
 		return !(lhs == rhs);
 	}
@@ -60,8 +58,8 @@ public:
 		
 		for (int i = 0; i < length; i++)
 		{
-			next.s[i] = convert(s[i]);
-			if (next.s[i] != options[opt_begin])
+			next.data[i] = convert(data[i]);
+			if (next.data[i] != options[opt_begin])
 				break;
 		}
 		return next;
@@ -71,8 +69,8 @@ public:
 	{
 		for (int i = 0; i < length; i++)
 		{
-			s[i] = convert(s[i]);
-			if (s[i] != options[opt_begin])
+			data[i] = convert(data[i]);
+			if (data[i] != options[opt_begin])
 				break;
 		}
 		return *this;
@@ -88,7 +86,8 @@ private:
 	
 	kmer()
 	{
-		s[length] = 0;
+		// The rest will be filled in a minute.
+		data[length] = 0;
 	}
 	
 };
